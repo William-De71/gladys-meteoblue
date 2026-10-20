@@ -1,0 +1,417 @@
+{
+  "manifest": {
+    "type": "weather",
+    "transports": ["cloud"],
+    "config_schema": [
+      {
+        "key": "api_key",
+        "type": "secret"
+      },
+      {
+        "key": "annual_credits",
+        "type": "number"
+      },
+      {
+        "key": "key_start_date",
+        "type": "string"
+      },
+      {
+        "key": "min_refresh_minutes",
+        "type": "number"
+      },
+      {
+        "key": "meteogram_enabled",
+        "type": "boolean"
+      },
+      {
+        "key": "meteogram_hours",
+        "type": "number"
+      }
+    ],
+    "actions": ["test_api_key"],
+    "scene_triggers": [
+      {
+        "key": "rain_expected",
+        "fields": [
+          {
+            "key": "house",
+            "type": "select"
+          },
+          {
+            "key": "kind",
+            "type": "multi_select"
+          }
+        ],
+        "options": {
+          "kind": ["rain", "snow", "mixed"]
+        },
+        "variables": [
+          {
+            "key": "house_name",
+            "type": "string"
+          },
+          {
+            "key": "kind",
+            "type": "string"
+          },
+          {
+            "key": "start_time",
+            "type": "string"
+          },
+          {
+            "key": "minutes_until",
+            "type": "number"
+          },
+          {
+            "key": "precipitation",
+            "type": "number"
+          },
+          {
+            "key": "probability",
+            "type": "number"
+          },
+          {
+            "key": "sky",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "frost_expected",
+        "fields": [
+          {
+            "key": "house",
+            "type": "select"
+          }
+        ],
+        "options": {},
+        "variables": [
+          {
+            "key": "house_name",
+            "type": "string"
+          },
+          {
+            "key": "start_time",
+            "type": "string"
+          },
+          {
+            "key": "hours_until",
+            "type": "number"
+          },
+          {
+            "key": "min_temperature",
+            "type": "number"
+          },
+          {
+            "key": "coldest_time",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "credits_level",
+        "fields": [
+          {
+            "key": "level",
+            "type": "select"
+          }
+        ],
+        "options": {
+          "level": ["75", "90", "100"]
+        },
+        "variables": [
+          {
+            "key": "level",
+            "type": "string"
+          },
+          {
+            "key": "used",
+            "type": "number"
+          },
+          {
+            "key": "annual",
+            "type": "number"
+          },
+          {
+            "key": "remaining",
+            "type": "number"
+          },
+          {
+            "key": "year_end",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "scene_actions": [
+      {
+        "key": "get_forecast",
+        "fields": [
+          {
+            "key": "house",
+            "type": "select"
+          },
+          {
+            "key": "day",
+            "type": "select"
+          }
+        ],
+        "options": {
+          "day": ["0", "1", "2", "3", "4", "5", "6"]
+        },
+        "outputs": [
+          {
+            "key": "summary",
+            "type": "string"
+          },
+          {
+            "key": "sky",
+            "type": "string"
+          },
+          {
+            "key": "date",
+            "type": "string"
+          },
+          {
+            "key": "temperature_max",
+            "type": "number"
+          },
+          {
+            "key": "temperature_min",
+            "type": "number"
+          },
+          {
+            "key": "precipitation",
+            "type": "number"
+          },
+          {
+            "key": "precipitation_probability",
+            "type": "number"
+          },
+          {
+            "key": "predictability",
+            "type": "number"
+          },
+          {
+            "key": "wind_max",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "key": "get_current",
+        "fields": [
+          {
+            "key": "house",
+            "type": "select"
+          }
+        ],
+        "options": {},
+        "outputs": [
+          {
+            "key": "summary",
+            "type": "string"
+          },
+          {
+            "key": "sky",
+            "type": "string"
+          },
+          {
+            "key": "temperature",
+            "type": "number"
+          },
+          {
+            "key": "feels_like",
+            "type": "number"
+          },
+          {
+            "key": "humidity",
+            "type": "number"
+          },
+          {
+            "key": "wind_speed",
+            "type": "number"
+          }
+        ]
+      },
+      {
+        "key": "get_rain",
+        "fields": [
+          {
+            "key": "house",
+            "type": "select"
+          },
+          {
+            "key": "hours",
+            "type": "select"
+          }
+        ],
+        "options": {
+          "hours": ["3", "6", "12", "24"]
+        },
+        "outputs": [
+          {
+            "key": "rain_expected",
+            "type": "boolean"
+          },
+          {
+            "key": "first_time",
+            "type": "string"
+          },
+          {
+            "key": "kind",
+            "type": "string"
+          },
+          {
+            "key": "total_precipitation",
+            "type": "number"
+          },
+          {
+            "key": "max_probability",
+            "type": "number"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "widgets": [
+      {
+        "key": "daily",
+        "settings": [
+          {
+            "key": "house",
+            "type": "select"
+          },
+          {
+            "key": "days",
+            "type": "select"
+          },
+          {
+            "key": "show_icons",
+            "type": "boolean"
+          }
+        ],
+        "options": {
+          "days": ["3", "5", "7"]
+        }
+      },
+      {
+        "key": "hourly",
+        "settings": [
+          {
+            "key": "house",
+            "type": "select"
+          },
+          {
+            "key": "metric",
+            "type": "select"
+          },
+          {
+            "key": "hours",
+            "type": "select"
+          }
+        ],
+        "options": {
+          "metric": ["temperature", "precipitation", "wind"],
+          "hours": ["12", "24", "48"]
+        }
+      },
+      {
+        "key": "meteogram",
+        "settings": [
+          {
+            "key": "house",
+            "type": "select"
+          }
+        ],
+        "options": {}
+      },
+      {
+        "key": "credits",
+        "settings": [],
+        "options": {}
+      }
+    ]
+  },
+  "code": {
+    "rain_expected_data": [
+      "house",
+      "house_name",
+      "kind",
+      "start_time",
+      "minutes_until",
+      "precipitation",
+      "probability",
+      "sky"
+    ],
+    "frost_expected_data": [
+      "house",
+      "house_name",
+      "start_time",
+      "hours_until",
+      "min_temperature",
+      "coldest_time"
+    ],
+    "credits_level_data": ["level", "used", "annual", "remaining", "year_end"],
+    "get_forecast_outputs": [
+      "summary",
+      "sky",
+      "date",
+      "temperature_max",
+      "temperature_min",
+      "precipitation",
+      "precipitation_probability",
+      "predictability",
+      "wind_max"
+    ],
+    "get_current_outputs": [
+      "summary",
+      "sky",
+      "temperature",
+      "feels_like",
+      "humidity",
+      "wind_speed"
+    ],
+    "get_rain_outputs": [
+      "rain_expected",
+      "first_time",
+      "kind",
+      "total_precipitation",
+      "max_probability",
+      "summary"
+    ]
+  },
+  "image_keys": {
+    "mb-h-01-d": {
+      "set": "hourly",
+      "code": 1,
+      "isDay": true,
+      "url": "https://static.meteoblue.com/assets/images/picto/01_day.png"
+    },
+    "mb-h-23-n": {
+      "set": "hourly",
+      "code": 23,
+      "isDay": false,
+      "url": "https://static.meteoblue.com/assets/images/picto/23_night.png"
+    },
+    "mb-d-06": {
+      "set": "daily",
+      "code": 6,
+      "isDay": true,
+      "url": "https://static.meteoblue.com/assets/images/picto/06_iday.png"
+    },
+    "mb-h-30-d": {
+      "set": "daily",
+      "code": 24,
+      "isDay": true,
+      "url": "https://static.meteoblue.com/assets/images/picto/30_day.png"
+    }
+  },
+  "meteogram_keys": {
+    "weather": "^meteogram-[0-9a-f]{10}$",
+    "widget": "^mb-mg-[0-9a-f]{10}-[0-9a-z]+$"
+  }
+}

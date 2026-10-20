@@ -1,0 +1,1329 @@
+{
+  "manifest_version": 1,
+  "type": "weather",
+  "name": "Meteoblue",
+  "description": {
+    "en": "meteoblue weather forecasts: hourly, 7 days, rain and frost scenes, meteogram, widgets.",
+    "fr": "Prévisions météo meteoblue : horaires, 7 jours, scènes pluie et gel, météogramme, widgets.",
+    "de": "meteoblue-Wettervorhersage: stündlich, 7 Tage, Regen- und Frostszenen, Meteogramm, Widgets.",
+    "es": "Previsión meteoblue: por horas, 7 días, escenas de lluvia y helada, meteograma, widgets."
+  },
+  "version": "0.1.0",
+  "docker_image": "ghcr.io/william-de71/gladys-meteoblue:0.1.0",
+  "gladys_version": ">=5.2.0",
+  "categories": ["environment"],
+  "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-meteoblue/main/cover.jpg",
+  "transports": ["cloud"],
+  "location": true,
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Your meteoblue API key",
+        "fr": "Votre clé API meteoblue",
+        "de": "Dein meteoblue-API-Schlüssel",
+        "es": "Su clave API de meteoblue"
+      },
+      "description": {
+        "en": "Create a free meteoblue account, open \"Account overview\" and click \"Weather API\": the free trial starts at once, for one year, with 10 million credits, for NON-COMMERCIAL use only. Data leaves your network: each request goes to meteoblue with the coordinates of the house.",
+        "fr": "Créez un compte meteoblue gratuit, ouvrez « Account overview » et cliquez sur « Weather API » : l’essai gratuit démarre aussitôt, pour un an, avec 10 millions de crédits, pour un usage NON COMMERCIAL uniquement. Les données sortent de votre réseau : chaque requête part chez meteoblue avec les coordonnées de la maison.",
+        "de": "Lege ein kostenloses meteoblue-Konto an, öffne „Account overview“ und klicke auf „Weather API“: Die kostenlose Testphase beginnt sofort, für ein Jahr, mit 10 Millionen Credits, nur für NICHT-KOMMERZIELLE Nutzung. Daten verlassen dein Netzwerk: Jede Anfrage geht mit den Koordinaten des Zuhauses an meteoblue.",
+        "es": "Cree una cuenta meteoblue gratuita, abra «Account overview» y pulse «Weather API»: la prueba gratuita empieza al momento, por un año, con 10 millones de créditos, solo para uso NO COMERCIAL. Los datos salen de su red: cada solicitud va a meteoblue con las coordenadas de la vivienda."
+      },
+      "links": [
+        {
+          "url": "https://content.meteoblue.com/en/business-solutions/weather-apis/free-weather-api",
+          "label": {
+            "en": "The free Weather API",
+            "fr": "La Weather API gratuite",
+            "de": "Die kostenlose Weather API",
+            "es": "La Weather API gratuita"
+          }
+        },
+        {
+          "url": "https://docs.meteoblue.com/en/weather-apis/free-weather-api/overview",
+          "label": {
+            "en": "Get your key, step by step",
+            "fr": "Obtenir sa clé, pas à pas",
+            "de": "Schlüssel erhalten, Schritt für Schritt",
+            "es": "Obtener la clave, paso a paso"
+          }
+        },
+        {
+          "url": "https://content.meteoblue.com/en/about-us/legal/commercial-non-commercial-use",
+          "label": {
+            "en": "Non-commercial use",
+            "fr": "Usage non commercial",
+            "de": "Nicht-kommerzielle Nutzung",
+            "es": "Uso no comercial"
+          }
+        }
+      ]
+    },
+    {
+      "key": "api_key",
+      "type": "secret",
+      "label": {
+        "en": "API key",
+        "fr": "Clé API",
+        "de": "API-Schlüssel",
+        "es": "Clave API"
+      },
+      "description": {
+        "en": "The key shown under \"Weather API\" in your meteoblue account. Keys that require signed requests are not supported.",
+        "fr": "La clé affichée sous « Weather API » dans votre compte meteoblue. Les clés exigeant des requêtes signées ne sont pas gérées.",
+        "de": "Der Schlüssel unter „Weather API“ in deinem meteoblue-Konto. Schlüssel mit Signaturpflicht werden nicht unterstützt.",
+        "es": "La clave que aparece en «Weather API» en su cuenta meteoblue. No se admiten claves que exigen solicitudes firmadas."
+      },
+      "required": true,
+      "placeholder": {
+        "en": "Your meteoblue key",
+        "fr": "Votre clé meteoblue",
+        "de": "Dein meteoblue-Schlüssel",
+        "es": "Su clave meteoblue"
+      }
+    },
+    {
+      "key": "credits",
+      "type": "section",
+      "label": {
+        "en": "Credits and refresh",
+        "fr": "Crédits et mises à jour",
+        "de": "Credits und Aktualisierung",
+        "es": "Créditos y actualización"
+      },
+      "description": {
+        "en": "meteoblue counts credits, not calls: a forecast refresh (hourly + 7 days) costs 8,000 credits, so the free 10 million allow about 3 refreshes a day for one house. The integration spreads the credits left over the rest of the key year and computes the interval itself; every located house shares them. Forecasts are kept in /data: a restart costs nothing.",
+        "fr": "meteoblue compte des crédits, pas des appels : une mise à jour des prévisions (horaire + 7 jours) coûte 8 000 crédits, les 10 millions gratuits permettent donc environ 3 mises à jour par jour pour une maison. L’intégration répartit les crédits restants sur le reste de l’année de la clé et calcule l’intervalle elle-même ; toutes les maisons localisées se les partagent. Les prévisions sont gardées dans /data : un redémarrage ne coûte rien.",
+        "de": "meteoblue zählt Credits, keine Aufrufe: Eine Aktualisierung der Vorhersage (stündlich + 7 Tage) kostet 8.000 Credits, die kostenlosen 10 Millionen erlauben also etwa 3 Aktualisierungen am Tag für ein Zuhause. Die Integration verteilt die übrigen Credits auf den Rest des Schlüsseljahres und berechnet das Intervall selbst; alle Zuhause mit Standort teilen sie sich. Vorhersagen bleiben in /data: Ein Neustart kostet nichts.",
+        "es": "meteoblue cuenta créditos, no llamadas: una actualización de la previsión (por horas + 7 días) cuesta 8000 créditos, así que los 10 millones gratuitos permiten unas 3 actualizaciones al día para una vivienda. La integración reparte los créditos restantes en lo que queda del año de la clave y calcula el intervalo; todas las viviendas con ubicación los comparten. Las previsiones se guardan en /data: un reinicio no cuesta nada."
+      },
+      "links": [
+        {
+          "url": "https://content.meteoblue.com/en/business-solutions/weather-apis/pricing",
+          "label": {
+            "en": "meteoblue API pricing",
+            "fr": "Tarifs des API meteoblue",
+            "de": "Preise der meteoblue-APIs",
+            "es": "Precios de las API de meteoblue"
+          }
+        }
+      ]
+    },
+    {
+      "key": "annual_credits",
+      "type": "number",
+      "label": {
+        "en": "Credits per key year",
+        "fr": "Crédits par année de clé",
+        "de": "Credits pro Schlüsseljahr",
+        "es": "Créditos por año de clave"
+      },
+      "description": {
+        "en": "10,000,000 for the free trial. Raise it after buying credits; the integration never spends more in a key year.",
+        "fr": "10 000 000 pour l’essai gratuit. Augmentez-le après un achat de crédits ; l’intégration ne dépense jamais plus sur une année de clé.",
+        "de": "10.000.000 für die kostenlose Testphase. Nach einem Credit-Kauf erhöhen; die Integration gibt in einem Schlüsseljahr nie mehr aus.",
+        "es": "10 000 000 para la prueba gratuita. Auméntelo tras comprar créditos; la integración nunca gasta más en un año de clave."
+      },
+      "required": false,
+      "default": 10000000,
+      "min": 100000,
+      "max": 10000000000
+    },
+    {
+      "key": "key_start_date",
+      "type": "string",
+      "label": {
+        "en": "Start of the key year",
+        "fr": "Début de l’année de la clé",
+        "de": "Beginn des Schlüsseljahres",
+        "es": "Inicio del año de la clave"
+      },
+      "description": {
+        "en": "The day your Weather API access started (YYYY-MM-DD), shown in your meteoblue account. Empty: the first day the integration used the key.",
+        "fr": "Le jour où votre accès Weather API a commencé (AAAA-MM-JJ), visible dans votre compte meteoblue. Vide : le premier jour où l’intégration a utilisé la clé.",
+        "de": "Der Tag, an dem dein Weather-API-Zugang begann (JJJJ-MM-TT), sichtbar in deinem meteoblue-Konto. Leer: der erste Tag, an dem die Integration den Schlüssel nutzte.",
+        "es": "El día en que empezó su acceso a la Weather API (AAAA-MM-DD), visible en su cuenta meteoblue. Vacío: el primer día en que la integración usó la clave."
+      },
+      "required": false,
+      "placeholder": {
+        "en": "2026-10-20",
+        "fr": "2026-10-20",
+        "de": "2026-10-20",
+        "es": "2026-10-20"
+      }
+    },
+    {
+      "key": "min_refresh_minutes",
+      "type": "number",
+      "label": {
+        "en": "Refresh at most every (min)",
+        "fr": "Mise à jour au plus toutes les (min)",
+        "de": "Aktualisierung höchstens alle (Min.)",
+        "es": "Actualizar como mucho cada (min)"
+      },
+      "description": {
+        "en": "Between 30 and 1,440. The credits usually allow less often: this floor only matters with bought credits.",
+        "fr": "Entre 30 et 1 440. Les crédits imposent en général moins souvent : ce plancher ne compte qu’avec des crédits achetés.",
+        "de": "Zwischen 30 und 1.440. Die Credits erlauben meist seltener: Diese Untergrenze zählt nur mit gekauften Credits.",
+        "es": "Entre 30 y 1440. Los créditos suelen permitir menos: este mínimo solo cuenta con créditos comprados."
+      },
+      "required": false,
+      "default": 60,
+      "min": 30,
+      "max": 1440
+    },
+    {
+      "key": "meteogram",
+      "type": "section",
+      "label": {
+        "en": "Meteogram",
+        "fr": "Météogramme",
+        "de": "Meteogramm",
+        "es": "Meteograma"
+      },
+      "description": {
+        "en": "The 5-day meteogram picture of meteoblue, in the weather card and in its widget. Each picture costs 16,000 credits (two forecast refreshes): it is fetched only when someone looks at it, then kept for the duration below.",
+        "fr": "L’image du météogramme 5 jours de meteoblue, dans la carte météo et dans son widget. Chaque image coûte 16 000 crédits (deux mises à jour de prévisions) : elle n’est demandée que lorsque quelqu’un la regarde, puis gardée pendant la durée ci-dessous.",
+        "de": "Das 5-Tage-Meteogramm von meteoblue, in der Wetterkarte und in seinem Widget. Jedes Bild kostet 16.000 Credits (zwei Vorhersage-Aktualisierungen): Es wird nur geladen, wenn jemand es ansieht, und dann für die unten gewählte Dauer behalten.",
+        "es": "La imagen del meteograma de 5 días de meteoblue, en la tarjeta meteorológica y en su widget. Cada imagen cuesta 16 000 créditos (dos actualizaciones de previsión): solo se pide cuando alguien la mira y se conserva durante el tiempo indicado abajo."
+      }
+    },
+    {
+      "key": "meteogram_enabled",
+      "type": "boolean",
+      "label": {
+        "en": "Show the meteogram",
+        "fr": "Afficher le météogramme",
+        "de": "Meteogramm anzeigen",
+        "es": "Mostrar el meteograma"
+      },
+      "required": false,
+      "default": false
+    },
+    {
+      "key": "meteogram_hours",
+      "type": "number",
+      "label": {
+        "en": "Keep a meteogram for (hours)",
+        "fr": "Garder un météogramme (heures)",
+        "de": "Meteogramm behalten (Stunden)",
+        "es": "Conservar un meteograma (horas)"
+      },
+      "description": {
+        "en": "Between 3 and 168. 24 h = 5.8 million credits a year: more than half of the free ones.",
+        "fr": "Entre 3 et 168. 24 h = 5,8 millions de crédits par an : plus de la moitié des crédits gratuits.",
+        "de": "Zwischen 3 und 168. 24 h = 5,8 Millionen Credits im Jahr: mehr als die Hälfte der kostenlosen.",
+        "es": "Entre 3 y 168. 24 h = 5,8 millones de créditos al año: más de la mitad de los gratuitos."
+      },
+      "required": false,
+      "default": 24,
+      "min": 3,
+      "max": 168
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_api_key",
+      "label": {
+        "en": "Test the API key",
+        "fr": "Tester la clé API",
+        "de": "API-Schlüssel testen",
+        "es": "Probar la clave API"
+      },
+      "description": {
+        "en": "Reads the forecast of your first house now (8,000 credits) and shows the credits used this key year.",
+        "fr": "Lit maintenant les prévisions de votre première maison (8 000 crédits) et affiche les crédits utilisés cette année de clé.",
+        "de": "Liest jetzt die Vorhersage deines ersten Zuhauses (8.000 Credits) und zeigt die in diesem Schlüsseljahr genutzten Credits.",
+        "es": "Lee ahora la previsión de su primera vivienda (8000 créditos) y muestra los créditos usados en este año de clave."
+      },
+      "timeout_seconds": 30
+    }
+  ],
+  "widgets": [
+    {
+      "key": "daily",
+      "label": {
+        "en": "7-day forecast",
+        "fr": "Prévisions 7 jours",
+        "de": "7-Tage-Vorhersage",
+        "es": "Previsión 7 días"
+      },
+      "description": {
+        "en": "Day by day with meteoblue pictograms: high and low, precipitation, wind and predictability.",
+        "fr": "Jour par jour avec les pictogrammes meteoblue : max et min, précipitations, vent et fiabilité.",
+        "de": "Tag für Tag mit meteoblue-Piktogrammen: Max., Min., Niederschlag, Wind und Vorhersagbarkeit.",
+        "es": "Día a día con los pictogramas de meteoblue: máxima y mínima, precipitación, viento y fiabilidad."
+      },
+      "icon": "calendar",
+      "settings": [
+        {
+          "key": "house",
+          "type": "select",
+          "source": "houses",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Vivienda"
+          },
+          "description": {
+            "en": "Leave empty for the first house with a location.",
+            "fr": "Laissez vide pour la première maison localisée.",
+            "de": "Leer lassen für das erste Zuhause mit Standort.",
+            "es": "Déjelo vacío para la primera vivienda con ubicación."
+          },
+          "required": false
+        },
+        {
+          "key": "days",
+          "type": "select",
+          "label": {
+            "en": "Days",
+            "fr": "Jours",
+            "de": "Tage",
+            "es": "Días"
+          },
+          "default": "7",
+          "options": [
+            {
+              "value": "3",
+              "label": {
+                "en": "3 days",
+                "fr": "3 jours",
+                "de": "3 Tage",
+                "es": "3 días"
+              }
+            },
+            {
+              "value": "5",
+              "label": {
+                "en": "5 days",
+                "fr": "5 jours",
+                "de": "5 Tage",
+                "es": "5 días"
+              }
+            },
+            {
+              "value": "7",
+              "label": {
+                "en": "7 days",
+                "fr": "7 jours",
+                "de": "7 Tage",
+                "es": "7 días"
+              }
+            }
+          ]
+        },
+        {
+          "key": "show_icons",
+          "type": "boolean",
+          "label": {
+            "en": "Show the pictograms",
+            "fr": "Afficher les pictogrammes",
+            "de": "Piktogramme anzeigen",
+            "es": "Mostrar los pictogramas"
+          },
+          "default": true
+        }
+      ]
+    },
+    {
+      "key": "hourly",
+      "label": {
+        "en": "Next hours",
+        "fr": "Prochaines heures",
+        "de": "Nächste Stunden",
+        "es": "Próximas horas"
+      },
+      "description": {
+        "en": "A curve of the next hours: temperature, precipitation or wind.",
+        "fr": "Une courbe des prochaines heures : température, précipitations ou vent.",
+        "de": "Ein Verlauf der nächsten Stunden: Temperatur, Niederschlag oder Wind.",
+        "es": "Una curva de las próximas horas: temperatura, precipitación o viento."
+      },
+      "icon": "trending-up",
+      "settings": [
+        {
+          "key": "house",
+          "type": "select",
+          "source": "houses",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Vivienda"
+          },
+          "description": {
+            "en": "Leave empty for the first house with a location.",
+            "fr": "Laissez vide pour la première maison localisée.",
+            "de": "Leer lassen für das erste Zuhause mit Standort.",
+            "es": "Déjelo vacío para la primera vivienda con ubicación."
+          },
+          "required": false
+        },
+        {
+          "key": "metric",
+          "type": "select",
+          "label": {
+            "en": "Show",
+            "fr": "Afficher",
+            "de": "Anzeigen",
+            "es": "Mostrar"
+          },
+          "default": "temperature",
+          "options": [
+            {
+              "value": "temperature",
+              "label": {
+                "en": "Temperature and feels like",
+                "fr": "Température et ressenti",
+                "de": "Temperatur und gefühlte Temperatur",
+                "es": "Temperatura y sensación térmica"
+              }
+            },
+            {
+              "value": "precipitation",
+              "label": {
+                "en": "Precipitation",
+                "fr": "Précipitations",
+                "de": "Niederschlag",
+                "es": "Precipitación"
+              }
+            },
+            {
+              "value": "wind",
+              "label": {
+                "en": "Wind",
+                "fr": "Vent",
+                "de": "Wind",
+                "es": "Viento"
+              }
+            }
+          ]
+        },
+        {
+          "key": "hours",
+          "type": "select",
+          "label": {
+            "en": "Hours",
+            "fr": "Heures",
+            "de": "Stunden",
+            "es": "Horas"
+          },
+          "default": "24",
+          "options": [
+            {
+              "value": "12",
+              "label": {
+                "en": "12 hours",
+                "fr": "12 heures",
+                "de": "12 Stunden",
+                "es": "12 horas"
+              }
+            },
+            {
+              "value": "24",
+              "label": {
+                "en": "24 hours",
+                "fr": "24 heures",
+                "de": "24 Stunden",
+                "es": "24 horas"
+              }
+            },
+            {
+              "value": "48",
+              "label": {
+                "en": "48 hours",
+                "fr": "48 heures",
+                "de": "48 Stunden",
+                "es": "48 horas"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "meteogram",
+      "label": {
+        "en": "Meteogram",
+        "fr": "Météogramme",
+        "de": "Meteogramm",
+        "es": "Meteograma"
+      },
+      "description": {
+        "en": "The 5-day meteogram of meteoblue (switch it on in the configuration).",
+        "fr": "Le météogramme 5 jours de meteoblue (à activer dans la configuration).",
+        "de": "Das 5-Tage-Meteogramm von meteoblue (in der Konfiguration einschalten).",
+        "es": "El meteograma de 5 días de meteoblue (actívelo en la configuración)."
+      },
+      "icon": "image",
+      "settings": [
+        {
+          "key": "house",
+          "type": "select",
+          "source": "houses",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Vivienda"
+          },
+          "description": {
+            "en": "Leave empty for the first house with a location.",
+            "fr": "Laissez vide pour la première maison localisée.",
+            "de": "Leer lassen für das erste Zuhause mit Standort.",
+            "es": "Déjelo vacío para la primera vivienda con ubicación."
+          },
+          "required": false
+        }
+      ]
+    },
+    {
+      "key": "credits",
+      "label": {
+        "en": "meteoblue credits",
+        "fr": "Crédits meteoblue",
+        "de": "meteoblue-Credits",
+        "es": "Créditos meteoblue"
+      },
+      "description": {
+        "en": "Credits used and left this key year, and the refresh interval they allow.",
+        "fr": "Crédits utilisés et restants cette année de clé, et l’intervalle de mise à jour qu’ils permettent.",
+        "de": "Genutzte und übrige Credits in diesem Schlüsseljahr und das erlaubte Aktualisierungsintervall.",
+        "es": "Créditos usados y restantes en este año de clave, y el intervalo de actualización que permiten."
+      },
+      "icon": "database"
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "rain_expected",
+      "label": {
+        "en": "Rain expected soon",
+        "fr": "Pluie attendue bientôt",
+        "de": "Bald Regen erwartet",
+        "es": "Lluvia prevista pronto"
+      },
+      "description": {
+        "en": "The forecast now shows precipitation within the next 3 hours, after a dry spell (checked every 10 minutes).",
+        "fr": "La prévision annonce désormais des précipitations dans les 3 prochaines heures, après une période sèche (vérifié toutes les 10 minutes).",
+        "de": "Die Vorhersage zeigt jetzt Niederschlag in den nächsten 3 Stunden, nach einer trockenen Phase (alle 10 Minuten geprüft).",
+        "es": "La previsión indica ahora precipitación en las próximas 3 horas, tras un periodo seco (comprobado cada 10 minutos)."
+      },
+      "fields": [
+        {
+          "key": "house",
+          "type": "select",
+          "source": "houses",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Vivienda"
+          },
+          "description": {
+            "en": "Leave empty for every located house.",
+            "fr": "Laissez vide pour toutes les maisons localisées.",
+            "de": "Leer lassen für alle Zuhause mit Standort.",
+            "es": "Déjelo vacío para todas las viviendas con ubicación."
+          },
+          "required": false
+        },
+        {
+          "key": "kind",
+          "type": "multi_select",
+          "label": {
+            "en": "Kind",
+            "fr": "Type",
+            "de": "Art",
+            "es": "Tipo"
+          },
+          "description": {
+            "en": "Leave empty for every kind.",
+            "fr": "Laissez vide pour tous les types.",
+            "de": "Leer lassen für alle Arten.",
+            "es": "Déjelo vacío para todos los tipos."
+          },
+          "required": false,
+          "options": [
+            {
+              "value": "rain",
+              "label": {
+                "en": "Rain",
+                "fr": "Pluie",
+                "de": "Regen",
+                "es": "Lluvia"
+              }
+            },
+            {
+              "value": "snow",
+              "label": {
+                "en": "Snow",
+                "fr": "Neige",
+                "de": "Schnee",
+                "es": "Nieve"
+              }
+            },
+            {
+              "value": "mixed",
+              "label": {
+                "en": "Rain and snow",
+                "fr": "Pluie et neige",
+                "de": "Schneeregen",
+                "es": "Aguanieve"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "house_name",
+          "type": "string",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Vivienda"
+          }
+        },
+        {
+          "key": "kind",
+          "type": "string",
+          "label": {
+            "en": "Kind (rain, snow, mixed)",
+            "fr": "Type (rain, snow, mixed)",
+            "de": "Art (rain, snow, mixed)",
+            "es": "Tipo (rain, snow, mixed)"
+          }
+        },
+        {
+          "key": "start_time",
+          "type": "string",
+          "label": {
+            "en": "From (local time)",
+            "fr": "À partir de (heure locale)",
+            "de": "Ab (Ortszeit)",
+            "es": "Desde (hora local)"
+          }
+        },
+        {
+          "key": "minutes_until",
+          "type": "number",
+          "label": {
+            "en": "Minutes until it starts",
+            "fr": "Minutes avant le début",
+            "de": "Minuten bis zum Beginn",
+            "es": "Minutos hasta el inicio"
+          }
+        },
+        {
+          "key": "precipitation",
+          "type": "number",
+          "label": {
+            "en": "Amount in 3 h (mm or in)",
+            "fr": "Cumul sur 3 h (mm ou in)",
+            "de": "Menge in 3 Std. (mm oder in)",
+            "es": "Cantidad en 3 h (mm o in)"
+          }
+        },
+        {
+          "key": "probability",
+          "type": "number",
+          "label": {
+            "en": "Chance (%)",
+            "fr": "Risque (%)",
+            "de": "Risiko (%)",
+            "es": "Probabilidad (%)"
+          }
+        },
+        {
+          "key": "sky",
+          "type": "string",
+          "label": {
+            "en": "Sky",
+            "fr": "Ciel",
+            "de": "Himmel",
+            "es": "Cielo"
+          }
+        }
+      ]
+    },
+    {
+      "key": "frost_expected",
+      "label": {
+        "en": "Frost expected",
+        "fr": "Gel attendu",
+        "de": "Frost erwartet",
+        "es": "Helada prevista"
+      },
+      "description": {
+        "en": "The forecast now shows 0 °C or below within the next 12 hours, after a check that showed none.",
+        "fr": "La prévision annonce désormais 0 °C ou moins dans les 12 prochaines heures, après une vérification qui n’en montrait pas.",
+        "de": "Die Vorhersage zeigt jetzt 0 °C oder weniger in den nächsten 12 Stunden, nach einer Prüfung ohne Frost.",
+        "es": "La previsión indica ahora 0 °C o menos en las próximas 12 horas, tras una comprobación que no lo mostraba."
+      },
+      "fields": [
+        {
+          "key": "house",
+          "type": "select",
+          "source": "houses",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Vivienda"
+          },
+          "description": {
+            "en": "Leave empty for every located house.",
+            "fr": "Laissez vide pour toutes les maisons localisées.",
+            "de": "Leer lassen für alle Zuhause mit Standort.",
+            "es": "Déjelo vacío para todas las viviendas con ubicación."
+          },
+          "required": false
+        }
+      ],
+      "variables": [
+        {
+          "key": "house_name",
+          "type": "string",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Vivienda"
+          }
+        },
+        {
+          "key": "start_time",
+          "type": "string",
+          "label": {
+            "en": "From (local time)",
+            "fr": "À partir de (heure locale)",
+            "de": "Ab (Ortszeit)",
+            "es": "Desde (hora local)"
+          }
+        },
+        {
+          "key": "hours_until",
+          "type": "number",
+          "label": {
+            "en": "Hours until it starts",
+            "fr": "Heures avant le début",
+            "de": "Stunden bis zum Beginn",
+            "es": "Horas hasta el inicio"
+          }
+        },
+        {
+          "key": "min_temperature",
+          "type": "number",
+          "label": {
+            "en": "Lowest temperature",
+            "fr": "Température la plus basse",
+            "de": "Tiefste Temperatur",
+            "es": "Temperatura más baja"
+          }
+        },
+        {
+          "key": "coldest_time",
+          "type": "string",
+          "label": {
+            "en": "Coldest at (local time)",
+            "fr": "Le plus froid à (heure locale)",
+            "de": "Am kältesten um (Ortszeit)",
+            "es": "Más frío a las (hora local)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "credits_level",
+      "label": {
+        "en": "meteoblue credits running out",
+        "fr": "Crédits meteoblue bientôt épuisés",
+        "de": "meteoblue-Credits gehen zur Neige",
+        "es": "Créditos meteoblue a punto de agotarse"
+      },
+      "description": {
+        "en": "75, 90 or 100 % of the credits of the key year are used (each level once a key year).",
+        "fr": "75, 90 ou 100 % des crédits de l’année de la clé sont utilisés (chaque palier une fois par année de clé).",
+        "de": "75, 90 oder 100 % der Credits des Schlüsseljahres sind genutzt (jede Stufe einmal pro Schlüsseljahr).",
+        "es": "Se ha usado el 75, 90 o 100 % de los créditos del año de la clave (cada nivel una vez por año de clave)."
+      },
+      "fields": [
+        {
+          "key": "level",
+          "type": "select",
+          "label": {
+            "en": "Level",
+            "fr": "Palier",
+            "de": "Stufe",
+            "es": "Nivel"
+          },
+          "description": {
+            "en": "Leave empty for every level.",
+            "fr": "Laissez vide pour tous les paliers.",
+            "de": "Leer lassen für alle Stufen.",
+            "es": "Déjelo vacío para todos los niveles."
+          },
+          "required": false,
+          "options": [
+            {
+              "value": "75",
+              "label": {
+                "en": "75 %",
+                "fr": "75 %",
+                "de": "75 %",
+                "es": "75 %"
+              }
+            },
+            {
+              "value": "90",
+              "label": {
+                "en": "90 %",
+                "fr": "90 %",
+                "de": "90 %",
+                "es": "90 %"
+              }
+            },
+            {
+              "value": "100",
+              "label": {
+                "en": "100 % (spent)",
+                "fr": "100 % (épuisés)",
+                "de": "100 % (aufgebraucht)",
+                "es": "100 % (agotados)"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "level",
+          "type": "string",
+          "label": {
+            "en": "Level (%)",
+            "fr": "Palier (%)",
+            "de": "Stufe (%)",
+            "es": "Nivel (%)"
+          }
+        },
+        {
+          "key": "used",
+          "type": "number",
+          "label": {
+            "en": "Credits used",
+            "fr": "Crédits utilisés",
+            "de": "Genutzte Credits",
+            "es": "Créditos usados"
+          }
+        },
+        {
+          "key": "annual",
+          "type": "number",
+          "label": {
+            "en": "Credits per key year",
+            "fr": "Crédits par année de clé",
+            "de": "Credits pro Schlüsseljahr",
+            "es": "Créditos por año de clave"
+          }
+        },
+        {
+          "key": "remaining",
+          "type": "number",
+          "label": {
+            "en": "Credits left",
+            "fr": "Crédits restants",
+            "de": "Übrige Credits",
+            "es": "Créditos restantes"
+          }
+        },
+        {
+          "key": "year_end",
+          "type": "string",
+          "label": {
+            "en": "Next key year (YYYY-MM-DD)",
+            "fr": "Prochaine année de clé (AAAA-MM-JJ)",
+            "de": "Nächstes Schlüsseljahr (JJJJ-MM-TT)",
+            "es": "Próximo año de clave (AAAA-MM-DD)"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "get_forecast",
+      "label": {
+        "en": "Get the forecast of a day",
+        "fr": "Obtenir la prévision d’un jour",
+        "de": "Vorhersage eines Tages abrufen",
+        "es": "Obtener la previsión de un día"
+      },
+      "description": {
+        "en": "High, low, sky, precipitation and predictability of a day, from meteoblue.",
+        "fr": "Max, min, ciel, précipitations et fiabilité d’un jour, d’après meteoblue.",
+        "de": "Höchst- und Tiefstwert, Himmel, Niederschlag und Vorhersagbarkeit eines Tages, von meteoblue.",
+        "es": "Máxima, mínima, cielo, precipitación y fiabilidad de un día, según meteoblue."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "house",
+          "type": "select",
+          "source": "houses",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Vivienda"
+          },
+          "description": {
+            "en": "Leave empty for the first house with a location.",
+            "fr": "Laissez vide pour la première maison localisée.",
+            "de": "Leer lassen für das erste Zuhause mit Standort.",
+            "es": "Déjelo vacío para la primera vivienda con ubicación."
+          },
+          "required": false
+        },
+        {
+          "key": "day",
+          "type": "select",
+          "label": {
+            "en": "Day",
+            "fr": "Jour",
+            "de": "Tag",
+            "es": "Día"
+          },
+          "required": false,
+          "default": "0",
+          "options": [
+            {
+              "value": "0",
+              "label": {
+                "en": "Today",
+                "fr": "Aujourd'hui",
+                "de": "Heute",
+                "es": "Hoy"
+              }
+            },
+            {
+              "value": "1",
+              "label": {
+                "en": "Tomorrow",
+                "fr": "Demain",
+                "de": "Morgen",
+                "es": "Mañana"
+              }
+            },
+            {
+              "value": "2",
+              "label": {
+                "en": "In 2 days",
+                "fr": "Dans 2 jours",
+                "de": "In 2 Tagen",
+                "es": "Dentro de 2 días"
+              }
+            },
+            {
+              "value": "3",
+              "label": {
+                "en": "In 3 days",
+                "fr": "Dans 3 jours",
+                "de": "In 3 Tagen",
+                "es": "Dentro de 3 días"
+              }
+            },
+            {
+              "value": "4",
+              "label": {
+                "en": "In 4 days",
+                "fr": "Dans 4 jours",
+                "de": "In 4 Tagen",
+                "es": "Dentro de 4 días"
+              }
+            },
+            {
+              "value": "5",
+              "label": {
+                "en": "In 5 days",
+                "fr": "Dans 5 jours",
+                "de": "In 5 Tagen",
+                "es": "Dentro de 5 días"
+              }
+            },
+            {
+              "value": "6",
+              "label": {
+                "en": "In 6 days",
+                "fr": "Dans 6 jours",
+                "de": "In 6 Tagen",
+                "es": "Dentro de 6 días"
+              }
+            }
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein Satz, fertig für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
+          }
+        },
+        {
+          "key": "sky",
+          "type": "string",
+          "label": {
+            "en": "Sky",
+            "fr": "Ciel",
+            "de": "Himmel",
+            "es": "Cielo"
+          }
+        },
+        {
+          "key": "date",
+          "type": "string",
+          "label": {
+            "en": "Date (YYYY-MM-DD)",
+            "fr": "Date (AAAA-MM-JJ)",
+            "de": "Datum (JJJJ-MM-TT)",
+            "es": "Fecha (AAAA-MM-DD)"
+          }
+        },
+        {
+          "key": "temperature_max",
+          "type": "number",
+          "label": {
+            "en": "High",
+            "fr": "Max",
+            "de": "Höchstwert",
+            "es": "Máxima"
+          }
+        },
+        {
+          "key": "temperature_min",
+          "type": "number",
+          "label": {
+            "en": "Low",
+            "fr": "Min",
+            "de": "Tiefstwert",
+            "es": "Mínima"
+          }
+        },
+        {
+          "key": "precipitation",
+          "type": "number",
+          "label": {
+            "en": "Precipitation (mm or in)",
+            "fr": "Précipitations (mm ou in)",
+            "de": "Niederschlag (mm oder in)",
+            "es": "Precipitación (mm o in)"
+          }
+        },
+        {
+          "key": "precipitation_probability",
+          "type": "number",
+          "label": {
+            "en": "Chance of precipitation (%)",
+            "fr": "Risque de précipitations (%)",
+            "de": "Niederschlagsrisiko (%)",
+            "es": "Probabilidad de precipitación (%)"
+          }
+        },
+        {
+          "key": "predictability",
+          "type": "number",
+          "label": {
+            "en": "Predictability (%)",
+            "fr": "Fiabilité (%)",
+            "de": "Vorhersagbarkeit (%)",
+            "es": "Fiabilidad (%)"
+          }
+        },
+        {
+          "key": "wind_max",
+          "type": "number",
+          "label": {
+            "en": "Max wind (km/h or mph)",
+            "fr": "Vent max (km/h ou mph)",
+            "de": "Max. Wind (km/h oder mph)",
+            "es": "Viento máx. (km/h o mph)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "get_current",
+      "label": {
+        "en": "Get the current weather",
+        "fr": "Obtenir la météo actuelle",
+        "de": "Aktuelles Wetter abrufen",
+        "es": "Obtener el tiempo actual"
+      },
+      "description": {
+        "en": "The conditions of the present hour, from the meteoblue forecast.",
+        "fr": "Les conditions de l’heure en cours, d’après la prévision meteoblue.",
+        "de": "Die Bedingungen der aktuellen Stunde, aus der meteoblue-Vorhersage.",
+        "es": "Las condiciones de la hora actual, según la previsión de meteoblue."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "house",
+          "type": "select",
+          "source": "houses",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Vivienda"
+          },
+          "description": {
+            "en": "Leave empty for the first house with a location.",
+            "fr": "Laissez vide pour la première maison localisée.",
+            "de": "Leer lassen für das erste Zuhause mit Standort.",
+            "es": "Déjelo vacío para la primera vivienda con ubicación."
+          },
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein Satz, fertig für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
+          }
+        },
+        {
+          "key": "sky",
+          "type": "string",
+          "label": {
+            "en": "Sky",
+            "fr": "Ciel",
+            "de": "Himmel",
+            "es": "Cielo"
+          }
+        },
+        {
+          "key": "temperature",
+          "type": "number",
+          "label": {
+            "en": "Temperature",
+            "fr": "Température",
+            "de": "Temperatur",
+            "es": "Temperatura"
+          }
+        },
+        {
+          "key": "feels_like",
+          "type": "number",
+          "label": {
+            "en": "Feels like",
+            "fr": "Ressenti",
+            "de": "Gefühlt",
+            "es": "Sensación térmica"
+          }
+        },
+        {
+          "key": "humidity",
+          "type": "number",
+          "label": {
+            "en": "Humidity (%)",
+            "fr": "Humidité (%)",
+            "de": "Luftfeuchtigkeit (%)",
+            "es": "Humedad (%)"
+          }
+        },
+        {
+          "key": "wind_speed",
+          "type": "number",
+          "label": {
+            "en": "Wind (km/h or mph)",
+            "fr": "Vent (km/h ou mph)",
+            "de": "Wind (km/h oder mph)",
+            "es": "Viento (km/h o mph)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "get_rain",
+      "label": {
+        "en": "Is rain expected?",
+        "fr": "Va-t-il pleuvoir ?",
+        "de": "Wird es regnen?",
+        "es": "¿Va a llover?"
+      },
+      "description": {
+        "en": "Whether precipitation is expected in the next hours, from when and how much.",
+        "fr": "S’il va pleuvoir ou neiger dans les prochaines heures, à partir de quand et combien.",
+        "de": "Ob in den nächsten Stunden Niederschlag erwartet wird, ab wann und wie viel.",
+        "es": "Si se espera precipitación en las próximas horas, desde cuándo y cuánta."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "house",
+          "type": "select",
+          "source": "houses",
+          "label": {
+            "en": "House",
+            "fr": "Maison",
+            "de": "Zuhause",
+            "es": "Vivienda"
+          },
+          "description": {
+            "en": "Leave empty for the first house with a location.",
+            "fr": "Laissez vide pour la première maison localisée.",
+            "de": "Leer lassen für das erste Zuhause mit Standort.",
+            "es": "Déjelo vacío para la primera vivienda con ubicación."
+          },
+          "required": false
+        },
+        {
+          "key": "hours",
+          "type": "select",
+          "label": {
+            "en": "Within",
+            "fr": "Dans les",
+            "de": "Innerhalb von",
+            "es": "En las próximas"
+          },
+          "required": false,
+          "default": "12",
+          "options": [
+            {
+              "value": "3",
+              "label": {
+                "en": "3 hours",
+                "fr": "3 heures",
+                "de": "3 Stunden",
+                "es": "3 horas"
+              }
+            },
+            {
+              "value": "6",
+              "label": {
+                "en": "6 hours",
+                "fr": "6 heures",
+                "de": "6 Stunden",
+                "es": "6 horas"
+              }
+            },
+            {
+              "value": "12",
+              "label": {
+                "en": "12 hours",
+                "fr": "12 heures",
+                "de": "12 Stunden",
+                "es": "12 horas"
+              }
+            },
+            {
+              "value": "24",
+              "label": {
+                "en": "24 hours",
+                "fr": "24 heures",
+                "de": "24 Stunden",
+                "es": "24 horas"
+              }
+            }
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "key": "rain_expected",
+          "type": "boolean",
+          "label": {
+            "en": "Precipitation expected",
+            "fr": "Précipitations attendues",
+            "de": "Niederschlag erwartet",
+            "es": "Precipitación prevista"
+          }
+        },
+        {
+          "key": "first_time",
+          "type": "string",
+          "label": {
+            "en": "From (local time)",
+            "fr": "À partir de (heure locale)",
+            "de": "Ab (Ortszeit)",
+            "es": "Desde (hora local)"
+          }
+        },
+        {
+          "key": "kind",
+          "type": "string",
+          "label": {
+            "en": "Kind (rain, snow, mixed)",
+            "fr": "Type (rain, snow, mixed)",
+            "de": "Art (rain, snow, mixed)",
+            "es": "Tipo (rain, snow, mixed)"
+          }
+        },
+        {
+          "key": "total_precipitation",
+          "type": "number",
+          "label": {
+            "en": "Total (mm or in)",
+            "fr": "Cumul (mm ou in)",
+            "de": "Summe (mm oder in)",
+            "es": "Total (mm o in)"
+          }
+        },
+        {
+          "key": "max_probability",
+          "type": "number",
+          "label": {
+            "en": "Max chance (%)",
+            "fr": "Risque max (%)",
+            "de": "Max. Risiko (%)",
+            "es": "Probabilidad máx. (%)"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein Satz, fertig für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1152" height="648" viewBox="0 0 1152 648">
+  <!-- A stand-in for the meteoblue meteogram in the widget illustrations: the
+       real picture is made by meteoblue and served at run time, never copied
+       here. Drawn from the shape of the test fixture (rain on Tuesday, frost
+       on Friday). -->
+  <rect width="1152" height="648" fill="#fafafa"/>
+  <g font-family="DejaVu Sans, Arial, sans-serif" fill="#1f2328">
+    <text x="32" y="48" font-size="30">Meteogram · 5 days</text>
+    <text x="32" y="82" font-size="20" fill="#57606a">illustration of the picture meteoblue serves</text>
+  </g>
+  <g stroke="#d0d7de" stroke-width="1">
+    <path d="M100 110 v400 M300 110 v400 M500 110 v400 M700 110 v400 M900 110 v400 M1100 110 v400"/>
+    <path d="M100 330 H1100" stroke-dasharray="6 6"/>
+  </g>
+  <g font-family="DejaVu Sans, Arial, sans-serif" font-size="20" fill="#57606a" text-anchor="middle">
+    <text x="200" y="540">Tue</text><text x="400" y="540">Wed</text><text x="600" y="540">Thu</text>
+    <text x="800" y="540">Fri</text><text x="1000" y="540">Sat</text>
+  </g>
+  <path d="M100 250 C 150 200, 200 170, 250 190 S 330 250, 380 230 S 460 290, 520 300 S 600 350, 660 330 S 740 380, 800 360 S 880 300, 940 280 S 1050 230, 1100 240" fill="none" stroke="#e5484d" stroke-width="6"/>
+  <g fill="#2f80ed">
+    <rect x="225" y="440" width="14" height="40"/><rect x="241" y="410" width="14" height="70"/>
+    <rect x="257" y="380" width="14" height="100"/><rect x="273" y="430" width="14" height="50"/>
+    <rect x="789" y="455" width="14" height="25"/>
+  </g>
+  <g fill="#8c959f" opacity="0.5">
+    <ellipse cx="230" cy="140" rx="60" ry="18"/><ellipse cx="580" cy="150" rx="80" ry="16"/>
+  </g>
+  <path d="M100 600 C 200 590, 300 560, 400 580 S 600 610, 700 600 S 900 570, 1100 590" fill="none" stroke="#1a7f37" stroke-width="4"/>
+  <text x="32" y="632" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#57606a">temperature · precipitation · clouds · wind</text>
+</svg>

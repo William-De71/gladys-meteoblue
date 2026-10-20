@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360">
+  <!-- Illustration: architecture of the Meteoblue integration for Gladys. -->
+  <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#57606a"/></marker></defs>
+  <rect width="960" height="360" fill="#ffffff"/>
+  <g font-family="DejaVu Sans, Arial, sans-serif" text-anchor="middle">
+    <rect x="20" y="100" width="220" height="160" rx="14" fill="#e8f1fb" stroke="#2f6fb5" stroke-width="2"/>
+    <text x="130" y="140" font-size="20" font-weight="bold" fill="#1f2328">Gladys Assistant</text>
+    <text x="130" y="170" font-size="14" fill="#57606a">weather card, assistant,</text>
+    <text x="130" y="190" font-size="14" fill="#57606a">scenes, dashboard widgets,</text>
+    <text x="130" y="210" font-size="14" fill="#57606a">house coordinates</text>
+    <rect x="350" y="100" width="250" height="160" rx="14" fill="#eef8f0" stroke="#1a7f37" stroke-width="2"/>
+    <text x="475" y="140" font-size="17" font-weight="bold" fill="#1f2328">gladys-meteoblue</text>
+    <text x="475" y="168" font-size="14" fill="#57606a">Docker container</text>
+    <text x="475" y="188" font-size="14" fill="#57606a">credit plan, forecast watcher</text>
+    <text x="475" y="208" font-size="14" fill="#57606a">/data: credits, forecasts,</text>
+    <text x="475" y="228" font-size="14" fill="#57606a">meteograms</text>
+    <rect x="710" y="20" width="230" height="100" rx="14" fill="#e6f0fc" stroke="#1c4f96" stroke-width="2"/>
+    <text x="825" y="52" font-size="15" font-weight="bold" fill="#1f2328">Forecast API</text>
+    <text x="825" y="76" font-size="13" fill="#57606a">my.meteoblue.com/packages</text>
+    <text x="825" y="98" font-size="13" fill="#57606a">basic-1h_basic-day · 8,000</text>
+    <rect x="710" y="135" width="230" height="90" rx="14" fill="#fff5e6" stroke="#bc6c00" stroke-width="2"/>
+    <text x="825" y="166" font-size="15" font-weight="bold" fill="#1f2328">Image API</text>
+    <text x="825" y="190" font-size="13" fill="#57606a">meteogram · 16,000</text>
+    <text x="825" y="210" font-size="13" fill="#57606a">optional, kept 24 h</text>
+    <rect x="710" y="240" width="230" height="90" rx="14" fill="#f6f8fa" stroke="#57606a" stroke-width="2"/>
+    <text x="825" y="271" font-size="15" font-weight="bold" fill="#1f2328">Pictograms</text>
+    <text x="825" y="295" font-size="13" fill="#57606a">static.meteoblue.com</text>
+    <text x="825" y="315" font-size="13" fill="#57606a">known codes only</text>
+    <line x1="245" y1="165" x2="345" y2="165" stroke="#57606a" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+    <text x="295" y="152" font-size="12" fill="#57606a">REST + WebSocket</text>
+    <text x="295" y="190" font-size="12" fill="#57606a">/api/integration/v1</text>
+    <line x1="605" y1="130" x2="705" y2="75" stroke="#57606a" stroke-width="2" marker-end="url(#a)"/>
+    <line x1="605" y1="180" x2="705" y2="180" stroke="#57606a" stroke-width="2" marker-end="url(#a)"/>
+    <line x1="605" y1="230" x2="705" y2="285" stroke="#57606a" stroke-width="2" marker-end="url(#a)"/>
+    <text x="480" y="300" font-size="13" fill="#57606a">HTTPS, cloud only · key in the query, never logged · coordinates rounded to ~100 m</text>
+    <text x="480" y="345" font-size="12" fill="#8c959f">Illustration</text>
+  </g>
+</svg>
