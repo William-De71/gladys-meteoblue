@@ -5,6 +5,12 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/). This file is generated at
 each release from the Conventional Commits: do not edit it by hand.
 
+## [0.1.1] - 2026-10-24
+
+### Security
+
+- **security:** build the image on Node.js 24.22.1 or later ([46f41cb](https://github.com/William-De71/gladys-meteoblue/commit/46f41cbd69cf29f2112f2673f23d9c19083c6565))
+
 ## [0.1.0] - 2026-10-20
 
 ### Added
@@ -18,4 +24,5 @@ each release from the Conventional Commits: do not edit it by hand.
 - Attribution as meteoblue asks of free uses: every forecast widget names meteoblue and links to the meteoblue page of the same place.
 - English, French, German and Spanish everywhere: settings, widgets, scenes and documentation.
 
+[0.1.1]: https://github.com/William-De71/gladys-meteoblue/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/William-De71/gladys-meteoblue/releases/tag/v0.1.0

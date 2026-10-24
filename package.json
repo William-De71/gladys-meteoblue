@@ -1,6 +1,6 @@
 {
   "name": "gladys-meteoblue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "External Gladys Assistant integration for meteoblue: hourly and daily weather forecasts from the meteoblue Forecast API, rain and frost scene triggers, scene actions, meteogram and dashboard widgets, with a yearly credit budget.",
   "homepage": "https://github.com/William-De71/gladys-meteoblue",
