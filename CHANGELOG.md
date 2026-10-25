@@ -5,6 +5,12 @@ follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions
 follow [Semantic Versioning](https://semver.org/). This file is generated at
 each release from the Conventional Commits: do not edit it by hand.
 
+## [0.2.0] - 2026-10-25
+
+### Added
+
+- require Gladys 5.3 and declare catalog keywords ([c5c63b7](https://github.com/William-De71/gladys-meteoblue/commit/c5c63b7949e2ef9e8b6192e8ef20dae53bb30474))
+
 ## [0.1.1] - 2026-10-24
 
 ### Security
@@ -24,5 +30,6 @@ each release from the Conventional Commits: do not edit it by hand.
 - Attribution as meteoblue asks of free uses: every forecast widget names meteoblue and links to the meteoblue page of the same place.
 - English, French, German and Spanish everywhere: settings, widgets, scenes and documentation.
 
+[0.2.0]: https://github.com/William-De71/gladys-meteoblue/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/William-De71/gladys-meteoblue/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/William-De71/gladys-meteoblue/releases/tag/v0.1.0
