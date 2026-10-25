@@ -19,7 +19,7 @@ meteoblue publishes no official warning in this API: the weather-alert trigger o
 
 ## Requirements
 
-- Gladys 5.2.0 or later.
+- Gladys 5.3.0 or later.
 - A house with a location (Settings → Houses): the forecast of every located house is watched for the scene triggers.
 - A meteoblue account with the **Weather API** access (the free trial is enough), for non-commercial use.
 

@@ -5,7 +5,7 @@
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Latest release](https://img.shields.io/github/v/release/William-De71/gladys-meteoblue?sort=semver)](https://github.com/William-De71/gladys-meteoblue/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-meteoblue/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-meteoblue/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.2.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![Meteoblue for Gladys Assistant](cover.jpg)
 
@@ -79,7 +79,7 @@ The integration counts the cost meteoblue accounts for each answer (header `MB-C
 
 ## Requirements
 
-- Gladys **5.2.0** or later (older versions cannot install the integration: widgets, scenes and the house selector).
+- Gladys **5.3.0** or later (older versions cannot install the integration: widgets, scenes, the house selector and the catalog keywords of Gladys 5.3).
 - A house with a location in Gladys.
 - A meteoblue account with the **Weather API** access (the free trial: Account overview → Weather API), for non-commercial use. Step by step in the [documentation](docs/en.md#configuration).
 

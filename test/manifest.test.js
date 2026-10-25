@@ -29,7 +29,7 @@ test('a weather integration, in lockstep with package.json, at 0.x until 1.0.0 i
   assert.equal(pkg.name, 'gladys-meteoblue');
 });
 
-test('cloud transport only, the house coordinates as only permission, Gladys 5.2.0', () => {
+test('cloud transport only, the house coordinates as only permission, Gladys 5.3.0', () => {
   assert.deepEqual(manifest.transports, ['cloud']);
   assert.doesNotMatch(source('../src/app.js'), /GLADYS_PREFER_LOCAL|publishTransports/);
   assert.equal(manifest.location, true, 'the forecast watcher reads the houses');
@@ -37,8 +37,9 @@ test('cloud transport only, the house coordinates as only permission, Gladys 5.2
   for (const key of ['network_wake', 'containers', 'network_discovery', 'webhooks']) {
     assert.equal(manifest[key], undefined, key);
   }
-  // `source: "houses"` needs 5.2.0 (store constants), the minimum declared.
-  assert.equal(manifest.gladys_version, '>=5.2.0');
+  // `source: "houses"` needs 5.2.0 and the catalog `keywords` 5.3.0 (store
+  // constants): 5.3.0 is the minimum declared.
+  assert.equal(manifest.gladys_version, '>=5.3.0');
   const houseFields = [
     ...manifest.widgets.flatMap((widget) => widget.settings ?? []),
     ...manifest.scene_triggers.flatMap((trigger) => trigger.fields),
@@ -187,4 +188,18 @@ test('no host other than the documented ones in the code', () => {
     // the attribution link to the page of the place
     'www.meteoblue.com',
   ]);
+});
+
+test('catalog search terms and countries, which need Gladys 5.3.0', () => {
+  assert.equal(manifest.gladys_version, '>=5.3.0');
+  assert.ok(Array.isArray(manifest.keywords));
+  assert.ok(manifest.keywords.length >= 1 && manifest.keywords.length <= 10);
+  const terms = manifest.keywords.map((keyword) => keyword.trim().toLowerCase());
+  for (const [index, term] of terms.entries()) {
+    assert.ok(term.length >= 2 && manifest.keywords[index].length <= 30, term);
+  }
+  assert.equal(new Set(terms).size, terms.length, 'unique once trimmed and lowercased');
+  assert.ok(!terms.includes(manifest.name.toLowerCase()), 'the name is already searched');
+  // Usable anywhere: no country filter in the catalog.
+  assert.equal(manifest.countries, undefined);
 });

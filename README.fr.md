@@ -5,7 +5,7 @@
 [![Licence : Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-blue.svg)](LICENSE)
 [![Dernière version](https://img.shields.io/github/v/release/William-De71/gladys-meteoblue?sort=semver)](https://github.com/William-De71/gladys-meteoblue/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-meteoblue/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-meteoblue/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.2.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![Meteoblue pour Gladys Assistant](cover.jpg)
 
@@ -79,7 +79,7 @@ L’intégration compte le coût que meteoblue indique pour chaque réponse (en-
 
 ## Prérequis
 
-- Gladys **5.2.0** ou plus récent (les versions antérieures ne peuvent pas installer l’intégration : widgets, scènes et sélecteur de maison).
+- Gladys **5.3.0** ou plus récent (les versions antérieures ne peuvent pas installer l’intégration : widgets, scènes, sélecteur de maison et mots-clés du catalogue de Gladys 5.3).
 - Une maison localisée dans Gladys.
 - Un compte meteoblue avec l’accès **Weather API** (l’essai gratuit : Account overview → Weather API), pour un usage non commercial. Pas à pas dans la [documentation](docs/fr.md#configuration).
 

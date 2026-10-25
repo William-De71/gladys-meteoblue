@@ -19,7 +19,7 @@ meteoblue no publica avisos oficiales en esta API: el activador de alerta meteor
 
 ## Requisitos
 
-- Gladys 5.2.0 o posterior.
+- Gladys 5.3.0 o posterior.
 - Una vivienda con ubicación (Configuración → Viviendas): la previsión de cada vivienda con ubicación se vigila para los activadores de escena.
 - Una cuenta meteoblue con acceso a la **Weather API** (basta la prueba gratuita), para uso no comercial.
 

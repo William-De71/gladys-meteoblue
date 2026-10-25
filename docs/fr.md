@@ -19,7 +19,7 @@ meteoblue ne publie pas d’alerte officielle dans cette API : le déclencheur d
 
 ## Prérequis
 
-- Gladys 5.2.0 ou plus récent.
+- Gladys 5.3.0 ou plus récent.
 - Une maison localisée (Paramètres → Maisons) : la prévision de chaque maison localisée est surveillée pour les déclencheurs de scène.
 - Un compte meteoblue avec l’accès **Weather API** (l’essai gratuit suffit), pour un usage non commercial.
 

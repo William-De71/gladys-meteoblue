@@ -19,7 +19,7 @@ meteoblue veröffentlicht in dieser API keine amtlichen Warnungen: Der Wetterwar
 
 ## Voraussetzungen
 
-- Gladys 5.2.0 oder neuer.
+- Gladys 5.3.0 oder neuer.
 - Ein Zuhause mit Standort (Einstellungen → Zuhause): Die Vorhersage jedes Zuhauses mit Standort wird für die Szenen-Auslöser beobachtet.
 - Ein meteoblue-Konto mit **Weather-API**-Zugang (die kostenlose Testphase genügt), für nicht-kommerzielle Nutzung.
 
